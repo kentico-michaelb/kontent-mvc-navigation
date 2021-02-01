@@ -1,29 +1,19 @@
-﻿@using System.Globalization
+﻿
+@using System.Globalization
 
 @model LanguageSwitcher
 
 <div>
-        Language selector:
-        <ul>
-            @foreach (CultureInfo ci in Model.SupportedCultures)
-            {
-                if (Model.CurrentController != null && Model.CurrentAction != null)
-                {
-                    <li>
-                        <a asp-controller=@Model.CurrentController asp-action=@Model.CurrentAction
-                                         asp-route-culture=@ci.Name>
-                            @ci.NativeName.Substring(0, ci.NativeName.IndexOf("("))
-                        </a>
-                    </li>
-                }
-                else
-                {
-                    <li>
-                        <localized-route asp-controller="Home" asp-action="Index">
-                            @ci.NativeName.Substring(0, ci.NativeName.IndexOf("("))
-                        </localized-route>
-                    </li>
-                }
-            }
-        </ul>
-    </div>
+    Language selector:
+    <ul>
+        @foreach (LanguageSwitcherOption co in Model.CultureOptions)
+        {
+            <li>
+                <a asp-controller=@co.TranslatedController asp-action=@co.TranslatedAction
+                   asp-route-culture=@co.CultureCode>
+                    @co.DisplayName
+                </a>
+            </li>
+        }
+    </ul>
+</div>

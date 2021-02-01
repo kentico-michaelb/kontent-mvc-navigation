@@ -15,8 +15,8 @@ using static Kontent_MVC_Navigation.Configuration.Constants;
 
 namespace Kontent_MVC_Navigation.Controllers
 {
-    [LocalizedRoute(EnglishCulture, "brewers")]
-    [LocalizedRoute(SpanishCulture, "cafeteras")]
+    [LocalizedRoute(EnglishCulture, "Brewers")]
+    [LocalizedRoute(SpanishCulture, "Cafeteras")]
     public class BrewersController : Controller
     {
         private readonly IDeliveryClient _deliveryClient;
@@ -55,8 +55,8 @@ namespace Kontent_MVC_Navigation.Controllers
             }
         }
 
-        [LocalizedRoute(EnglishCulture, "show")]
-        [LocalizedRoute(SpanishCulture, "mostrar")]
+        [LocalizedRoute(EnglishCulture, "Show")]
+        [LocalizedRoute(SpanishCulture, "Mostrar")]
         public async Task<IActionResult> Show(string url_pattern)
         {
             if (url_pattern != null)
