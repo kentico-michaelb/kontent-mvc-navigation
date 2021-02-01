@@ -1,0 +1,30 @@
+﻿@using KenticoKontentModels
+@model Page
+@{
+    Layout = null;
+    bool pageHasSubpages = Model.Subpages.Count() > 0 ? true : false;
+    bool pageHasContent = Model.Content.Count() > 0 ? true : false;
+}
+
+
+<li>
+    @if (pageHasContent || pageHasSubpages)
+    {
+        <localized-route asp-controller=@Model.PageCodename asp-action="Index">@Model.Title</localized-route>
+
+        @* Check for nested navigation items *@
+        <ul>
+            @foreach (Page page in Model.Subpages)
+            {
+                if (page.ShowInNavigation.FirstOrDefault().Codename == "yes")
+                {
+                    @Html.DisplayFor(vm => page, "NavigationLevelOne")
+                }
+            }
+        </ul>
+    }
+    else
+    {
+        <localized-route asp-controller="Errors" asp-action="NotFound">@Model.Title</localized-route>
+    }
+</li>
