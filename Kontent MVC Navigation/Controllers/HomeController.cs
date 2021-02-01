@@ -13,8 +13,8 @@ using static Kontent_MVC_Navigation.Configuration.Constants;
 
 namespace Kontent_MVC_Navigation.Controllers
 {
-    [LocalizedRoute(EnglishCulture, "home")]
-    [LocalizedRoute(SpanishCulture, "inicio")]
+    [LocalizedRoute(EnglishCulture, "Home")]
+    [LocalizedRoute(SpanishCulture, "Inicio")]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;

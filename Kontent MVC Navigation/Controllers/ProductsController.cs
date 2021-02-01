@@ -15,8 +15,8 @@ using static Kontent_MVC_Navigation.Configuration.Constants;
 namespace Kontent_MVC_Navigation.Controllers
 {
 
-    [LocalizedRoute(EnglishCulture, "products")]
-    [LocalizedRoute(SpanishCulture, "productos")]
+    [LocalizedRoute(EnglishCulture, "Products")]
+    [LocalizedRoute(SpanishCulture, "Productos")]
     public class ProductsController : Controller
     {
         private readonly IDeliveryClient _deliveryClient;

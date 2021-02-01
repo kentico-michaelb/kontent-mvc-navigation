@@ -5,8 +5,8 @@ using static Kontent_MVC_Navigation.Configuration.Constants;
 
 namespace Kontent_MVC_Navigation.Controllers
 {
-    [LocalizedRoute(EnglishCulture, "errors")]
-    [LocalizedRoute(SpanishCulture, "errores")]
+    [LocalizedRoute(EnglishCulture, "Errors")]
+    [LocalizedRoute(SpanishCulture, "Errores")]
     public class ErrorsController : Controller
     {
         public new IActionResult NotFound()
