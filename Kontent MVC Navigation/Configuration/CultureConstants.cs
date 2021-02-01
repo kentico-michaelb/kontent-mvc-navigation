@@ -2,8 +2,8 @@
 {
     public static class Constants
     {
-        public const string EnglishCulture = "en-us";
-        public const string SpanishCulture = "es-es";
+        public const string EnglishCulture = "en-US";
+        public const string SpanishCulture = "es-ES";
         public const string DefaultCulture = EnglishCulture;
     }
 }

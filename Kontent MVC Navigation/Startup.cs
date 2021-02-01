@@ -39,7 +39,7 @@ namespace Kontent_MVC_Navigation
                     .AddDeliveryClient(Configuration);
 
             // Localization
-            services.AddRouting(options => options.LowercaseUrls = true);
+            services.AddRouting();
             services.AddLocalization();
             services.ConfigureRequestLocalization(EnglishCulture, SpanishCulture);
             services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
