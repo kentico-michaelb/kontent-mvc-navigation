@@ -9,7 +9,6 @@ namespace Kontent_MVC_Navigation.Models
     public class LanguageSwitcher
     {
         public CultureInfo CurrentUICulture { get; set; }
-        public List<CultureInfo> SupportedCultures { get; set; }
         public IEnumerable<LanguageSwitcherOption> CultureOptions { get; set; }
     }
 }

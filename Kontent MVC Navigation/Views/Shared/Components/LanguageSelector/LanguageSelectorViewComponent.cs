@@ -60,7 +60,6 @@ namespace Kontent_MVC_Navigation.Views.Shared.Components.LanguageSelector
 
             var languageSwitcher = new LanguageSwitcher
             {
-                SupportedCultures = _localizationOptions.Value.SupportedCultures.ToList(),
                 CurrentUICulture = currentUICulture,
                 CultureOptions = cultureOptions
             };
