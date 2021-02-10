@@ -1,12 +1,14 @@
 ﻿@using KenticoKontentModels
-@model List<Brewer>
+@model ListingViewModel
 @{
     ViewBag.Title = "Brewers";
 }
 
-<h3>Brewers</h3>
+<h1>@Model.Content.Title</h1>
 
-@foreach (Brewer brewer in Model)
+<div>@Html.DisplayFor(vm => vm.Content.Body)</div>
+
+@foreach (Brewer brewer in Model.RelatedItems)
 {
     @Html.DisplayFor(vm => brewer, "BrewerListing")
 }

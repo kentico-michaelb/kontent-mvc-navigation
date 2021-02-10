@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
 using KenticoKontentModels;
-
+using Kontent_MVC_Navigation.Models;
 
 namespace Kontent_MVC_Navigation.Controllers
 {
@@ -22,13 +22,29 @@ namespace Kontent_MVC_Navigation.Controllers
         [Route("articles", Name = "articles")]
         public async Task<IActionResult> Index()
         {
-            var response = await _deliveryClient.GetItemsAsync<Article>(
+            var articleResponse = await _deliveryClient.GetItemsAsync<Article>(
                 new EqualsFilter("system.type", "article")
                 );
 
-            var articles = response.Items;
+            var articles = articleResponse.Items;
 
-            return View(articles);
+            var articlesContentResponse = await _deliveryClient.GetItemAsync<ListingPageContent>("articles_listing_page");
+
+            if (articles.Count > 0)
+            {
+                var articleListing = new ListingViewModel
+                {
+                    Content = articlesContentResponse.Item,
+                    RelatedItems = articleResponse.Items
+                };
+
+                return View(articleListing);
+            }
+            else
+            {
+                return NotFound();
+            }
+
         }
 
         [Route("articles/{url_pattern}", Name = "show-article")]

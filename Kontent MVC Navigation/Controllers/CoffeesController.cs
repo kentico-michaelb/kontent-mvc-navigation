@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
 using KenticoKontentModels;
+using Kontent_MVC_Navigation.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Kontent_MVC_Navigation.Controllers
@@ -27,7 +28,22 @@ namespace Kontent_MVC_Navigation.Controllers
 
             var coffees = response.Items;
 
-            return View(coffees);
+            var coffeesContentResponse = await _deliveryClient.GetItemAsync<ListingPageContent>("coffees_listing_page");
+
+            if (coffees.Count() > 0)
+            {
+                var coffeeListing = new ListingViewModel
+                {
+                    Content = coffeesContentResponse.Item,
+                    RelatedItems = coffees
+                };
+
+                return View(coffeeListing);
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
         [Route("products/coffees/{url_pattern}", Name = "show-coffee")]
