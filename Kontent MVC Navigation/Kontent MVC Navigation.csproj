@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="Views\Brewers\Index.cshtml" />
+    <None Include="Views\Brewers\Show.cshtml" />
+    <None Include="Views\Coffees\Index.cshtml" />
+    <None Include="Views\Coffees\Show.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="AspNetCore.Mvc.Routing.Localization" Version="1.0.0" />
     <PackageReference Include="Kentico.Kontent.Delivery" Version="14.2.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.4" />

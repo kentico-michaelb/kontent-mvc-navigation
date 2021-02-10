@@ -8,6 +8,7 @@ using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.Urls.QueryParameters;
 using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
 using KenticoKontentModels;
+using Kontent_MVC_Navigation.Models;
 using Microsoft.AspNetCore.Mvc;
 
 using static Kontent_MVC_Navigation.Configuration.Constants;
@@ -26,16 +27,27 @@ namespace Kontent_MVC_Navigation.Controllers
         }
         public async Task<IActionResult> Index()
         {
-            var response = await _deliveryClient.GetItemsAsync<Brewer>(
+            var brewersResponse = await _deliveryClient.GetItemsAsync<Brewer>(
                 new EqualsFilter("system.type", "brewer"),
                 new EqualsFilter("system.language", CultureInfo.CurrentCulture.Name), // disable language fallback
                 new LanguageParameter(CultureInfo.CurrentCulture.Name)
                 );
 
-            var brewers = response.Items;
+            var brewers = brewersResponse.Items;
+
+            var brewersContentResponse = await _deliveryClient.GetItemAsync<ListingPageContent>("brewers_listing_page",
+                new LanguageParameter(CultureInfo.CurrentCulture.Name)
+                );
+
             if (brewers.Count() > 0)
             {
-                return View(brewers);
+                var brewerListing = new ListingViewModel
+                {
+                    Content = brewersContentResponse.Item,
+                    RelatedItems = brewers
+                };
+
+                return View(brewerListing);
             }
             else
             {
