@@ -41,9 +41,10 @@ namespace Kontent_MVC_Navigation
             // Localization
             services.AddRouting();
             services.AddLocalization();
-            services.ConfigureRequestLocalization(EnglishCulture, SpanishCulture);
+            services.ConfigureRequestLocalization(DefaultCulture, SpanishCulture);
             services.AddSingleton<CustomLocalizedRoutingTranslationTransformer>();
-            services.AddControllersWithViews();
+            services.AddControllersWithViews()
+                    .AddViewLocalization();
             services.AddLocalizedRouting();
 
 
@@ -68,7 +69,6 @@ namespace Kontent_MVC_Navigation
             app.UseStaticFiles();
 
             app.UseRouting();
-
 
             app.UseRequestLocalization();
 
