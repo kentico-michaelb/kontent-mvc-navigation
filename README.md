@@ -41,9 +41,8 @@ To import the sample project:
     kbm --action=restore --apiKey=<Management API key> --projectId=<Project ID> --zipFilename=part_three_backup
     ```
 
-    > Alternatively, you can use the [Template Manager UI](https://github.com/Kentico/kontent-template-manager) for importing the content.
-
-Go to your Kontent project and publish all the imported items.
+    > Alternatively, you can use the [Template Manager UI](https://github.com/Kentico/kontent-template-manager) for importing the content. <br/>
+    > **Note:** All language variants in the Kentico Kontent project must be published. The Kontent Backup Manager does this by default, and there is a "Publish language variants after import" option in the Kontent Template Manager UI.
 
 ### Connecting to the sample project
 Perform the following steps to connect your MVC application to the imported project:
@@ -85,3 +84,6 @@ Web Spotlight uses Kentico Kontent's "Preview" functionality in order to show th
 More details about setting up preview and Web Spotlight can be seen in the [official Kentico Kontent documentation.](https://docs.kontent.ai/tutorials/develop-apps/build-strong-foundation/set-up-preview "Kontent Documentation - set up preview for content items")
 
 > **Note:** Preview URLs require an `https://` protocol and a URL accessible to Kontent. Without a valid SSL certificate, Kontent responds with secure connection errors. When developing apps locally, see how to [serve pages over HTTPS](https://create-react-app.dev/docs/using-https-in-development/) in combination with [ngrok](https://ngrok.com/docs)'s forwarded address.
+
+## Localization
+This application uses route localization and tag helpers provided by the [AspNetCore.Mvc.Routing.Localization](https://github.com/tomasjurasek/AspNetCore.Mvc.Routing.Localization) package.
