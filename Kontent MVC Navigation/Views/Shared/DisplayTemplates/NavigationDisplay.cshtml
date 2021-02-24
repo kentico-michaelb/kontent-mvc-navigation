@@ -5,7 +5,7 @@
     bool pageHasSubpages = Model.Subpages.Count() > 0 ? true : false;
     bool pageHasContent = Model.Content.Count() > 0 ? true : false;
     bool pageIsCategoryOnly = Model.CategoryOnly.First().Codename == "yes" ? true : false;
-    bool pageIsRedirect = pageHasContent && Model.Content.FirstOrDefault().GetType() == typeof(RedirectionUrl) ? true : false;
+    bool pageIsRedirect = Model.RedirectionUrls.Count() > 0 ? true : false;
     var pageUrl = Model.Url != null ? Model.Url : "#";
 }
 
@@ -30,8 +30,7 @@ else
     <li>
         @if (pageIsRedirect)
         {
-
-            RedirectionUrl redirecton = (RedirectionUrl)Model.Content.First();
+            RedirectionUrl redirecton = Model.RedirectionUrls.First();
             if (redirecton.RedirectTo.Length > 0)
             {
                 <a href=@redirecton.RedirectTo target="_blank">@Model.Title</a>

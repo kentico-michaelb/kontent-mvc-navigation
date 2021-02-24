@@ -13,16 +13,18 @@ namespace KenticoKontentModels
     public partial class Page
     {
         public const string Codename = "page";
-        public const string ContentCodename = "content";
-        public const string ShowInNavigationCodename = "show_in_navigation";
         public const string CategoryOnlyCodename = "category_only";
+        public const string ContentCodename = "content";
+        public const string RedirectionUrlsCodename = "redirection_urls";
+        public const string ShowInNavigationCodename = "show_in_navigation";
         public const string SubpagesCodename = "subpages";
         public const string TitleCodename = "title";
         public const string UrlCodename = "url";
 
-        public IEnumerable<object> Content { get; set; }
-        public IEnumerable<IMultipleChoiceOption> ShowInNavigation { get; set; }
         public IEnumerable<IMultipleChoiceOption> CategoryOnly { get; set; }
+        public IEnumerable<object> Content { get; set; }
+        public IEnumerable<RedirectionUrl> RedirectionUrls { get; set; }
+        public IEnumerable<IMultipleChoiceOption> ShowInNavigation { get; set; }
         public IEnumerable<object> Subpages { get; set; }
         public IContentItemSystemAttributes System { get; set; }
         public string Title { get; set; }
