@@ -14,8 +14,10 @@ namespace KenticoKontentModels
     {
         public const string Codename = "redirection_url";
         public const string RedirectToCodename = "redirect_to";
+        public const string RedirectToInternalCodename = "redirect_to_internal";
 
         public string RedirectTo { get; set; }
+        public IEnumerable<Page> RedirectToInternal { get; set; }
         public IContentItemSystemAttributes System { get; set; }
     }
 }

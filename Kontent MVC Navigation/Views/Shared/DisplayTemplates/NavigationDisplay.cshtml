@@ -4,7 +4,7 @@
     Layout = null;
     bool pageHasSubpages = Model.Subpages.Count() > 0 ? true : false;
     bool pageHasContent = Model.Content.Count() > 0 ? true : false;
-    bool pageIsCategoryOnly = Model.CategoryOnly.First().Codename =="yes" ? true : false;
+    bool pageIsCategoryOnly = Model.CategoryOnly.First().Codename == "yes" ? true : false;
     bool pageIsRedirect = pageHasContent && Model.Content.FirstOrDefault().GetType() == typeof(RedirectionUrl) ? true : false;
     var pageUrl = Model.Url != null ? Model.Url : "#";
 }
@@ -27,32 +27,44 @@
 }
 else
 {
-    @if (pageIsRedirect)
-    {
-        RedirectionUrl redirecton = (RedirectionUrl)Model.Content.First();
-        <a href=@redirecton.RedirectTo target="_blank">@Model.Title</a>
-    }
-    else { 
-        <li>
-            @if(pageHasContent && !pageIsCategoryOnly)
-            { 
-            <localized-route asp-controller=@Model.PageCodename asp-action="Index">@Model.Title</localized-route>
+    <li>
+        @if (pageIsRedirect)
+        {
 
-            @* Check for nested navigation items *@
-            <ul>
-                @foreach (Page page in Model.Subpages)
-                {
-                    if (page.ShowInNavigation.FirstOrDefault().Codename == "yes")
-                    {
-                        @Html.DisplayFor(vm => page, "NavigationDisplay")
-                    }
-                }
-            </ul>
+            RedirectionUrl redirecton = (RedirectionUrl)Model.Content.First();
+            if (redirecton.RedirectTo.Length > 0)
+            {
+                <a href=@redirecton.RedirectTo target="_blank">@Model.Title</a>
             }
-            else 
-            { 
+            else
+            {
+                <localized-route asp-controller=@redirecton.RedirectToInternal.First().PageCodename asp-action="Index">@Model.Title</localized-route>
+            }
+
+        }
+        else
+        {
+
+            @if (pageHasContent && !pageIsCategoryOnly)
+            {
+                <localized-route asp-controller=@Model.PageCodename asp-action="Index">@Model.Title</localized-route>
+
+                @* Check for nested navigation items *@
+                <ul>
+                    @foreach (Page page in Model.Subpages)
+                    {
+                        if (page.ShowInNavigation.FirstOrDefault().Codename == "yes")
+                        {
+                            @Html.DisplayFor(vm => page, "NavigationDisplay")
+                        }
+                    }
+                </ul>
+            }
+            else
+            {
                 <localized-route asp-controller="Errors" asp-action="NotFound">@Model.Title</localized-route>
             }
-        </li>
-    }
+
+        }
+    </li>
 }
