@@ -9,7 +9,7 @@
         @foreach (LanguageSwitcherOption co in Model.CultureOptions)
         {
             <li>
-                <a asp-controller=@co.TranslatedController asp-action=@co.TranslatedAction
+                <a asp-controller=@co.TranslatedController.ToLower() asp-action=@co.TranslatedAction.ToLower()
                    asp-route-culture=@co.CultureCode>
                     @co.DisplayName
                 </a>
