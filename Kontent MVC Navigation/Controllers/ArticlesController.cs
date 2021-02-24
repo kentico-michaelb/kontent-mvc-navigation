@@ -37,7 +37,7 @@ namespace Kontent_MVC_Navigation.Controllers
 
             var articles = articleResponse.Items;
 
-            var articlesContentResponse = await _deliveryClient.GetItemAsync<ListingPageContent>("article_listing_page",
+            var articlesContentResponse = await _deliveryClient.GetItemAsync<ListingPageContent>("articles_listing_page",
                 new LanguageParameter(CultureInfo.CurrentCulture.Name)
                 );
             
