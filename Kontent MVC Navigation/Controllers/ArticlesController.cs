@@ -50,7 +50,7 @@ namespace Kontent_MVC_Navigation.Controllers
             }
             else
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "errors");
             }
 
         }
@@ -59,19 +59,21 @@ namespace Kontent_MVC_Navigation.Controllers
         [LocalizedRoute(SpanishCulture, "mostrar")]
         public async Task<IActionResult> Show(string url_pattern)
         {
-            if(url_pattern != null) { 
             var response = await _deliveryClient.GetItemsAsync<Article>(
                 new EqualsFilter("elements.url_pattern", url_pattern),
+                new EqualsFilter("system.language", CultureInfo.CurrentCulture.Name), // disable language fallback
                 new LanguageParameter(CultureInfo.CurrentCulture.Name)
                 );
 
-                var article = response.Items.FirstOrDefault();
-
-                return View(article);
+            if (response.Items.Count == 0)
+            {
+                return RedirectToAction("Index", "articles");
             }
             else
             {
-                return RedirectToAction("Index");
+                var article = response.Items.FirstOrDefault();
+
+                return View(article);
             }
         }
     }

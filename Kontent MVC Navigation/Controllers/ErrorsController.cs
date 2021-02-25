@@ -9,6 +9,7 @@ namespace Kontent_MVC_Navigation.Controllers
     [LocalizedRoute(SpanishCulture, "errores")]
     public class ErrorsController : Controller
     {
+        [LocalizedRoute(SpanishCulture, "no-encontrado")]
         public new IActionResult NotFound()
         {
             return View();

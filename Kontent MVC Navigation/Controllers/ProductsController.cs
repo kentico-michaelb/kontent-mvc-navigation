@@ -41,7 +41,7 @@ namespace Kontent_MVC_Navigation.Controllers
             }
             else
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Errors");
             }
         }
     }

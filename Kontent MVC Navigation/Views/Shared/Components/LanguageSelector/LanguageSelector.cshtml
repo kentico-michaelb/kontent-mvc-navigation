@@ -9,7 +9,7 @@
             {
             <li>
                 <a asp-controller=@co.TranslatedController.ToLower() asp-action=@co.TranslatedAction.ToLower()
-                   asp-route-culture=@co.CultureCode>
+                   asp-route-culture=@co.CultureCode asp-route-url_pattern=@co.UrlPattern >
                     @co.DisplayName
                 </a>
             </li>

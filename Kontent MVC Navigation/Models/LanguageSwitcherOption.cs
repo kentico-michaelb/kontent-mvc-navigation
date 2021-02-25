@@ -14,5 +14,6 @@ namespace Kontent_MVC_Navigation.Models
         public string TranslatedController { get; set; }
 
         public string TranslatedAction { get; set; }
+        public string UrlPattern { get; set; }
     }
 }

@@ -51,7 +51,7 @@ namespace Kontent_MVC_Navigation.Controllers
             }
             else
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "Errors");
             }
         }
 
@@ -59,20 +59,21 @@ namespace Kontent_MVC_Navigation.Controllers
         [LocalizedRoute(SpanishCulture, "mostrar")]
         public async Task<IActionResult> Show(string url_pattern)
         {
-            if (url_pattern != null)
+            var response = await _deliveryClient.GetItemsAsync<Brewer>(
+            new EqualsFilter("elements.url_pattern", url_pattern),
+            new EqualsFilter("system.language", CultureInfo.CurrentCulture.Name), // disable language fallback
+            new LanguageParameter(CultureInfo.CurrentCulture.Name)
+            );
+            
+            if (response.Items.Count == 0)
             {
-                var response = await _deliveryClient.GetItemsAsync<Brewer>(
-                new EqualsFilter("elements.url_pattern", url_pattern),
-                new LanguageParameter(CultureInfo.CurrentCulture.Name)
-                );
-
-                var brewer = response.Items.FirstOrDefault();
-
-                return View(brewer);
+                return RedirectToAction("Index", "brewers");
             }
             else
             {
-                return RedirectToAction("Index");
+                var brewer = response.Items.FirstOrDefault();
+
+                return View(brewer);
             }
         }
     }
