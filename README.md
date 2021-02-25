@@ -21,21 +21,28 @@ To run the app:
 ### Importing the blog post project
 To import the sample project:
 
-1. Go to app.kontent.ai and create an empty project
+1. Go to app.kontent.ai and [create an empty project](https://docs.kontent.ai/tutorials/manage-kontent/projects/manage-projects#a-creating-projects)
 
-1. Go to "Project Settings", note the _Project ID_ and _Management API_ keys for later use
+1. Go to _Project Settings_ > _Localization_
+    - Edit "Default Language" to be:
+        - **Language name:** English (United States)
+        - **Codename:** en-US
+    - Create new language:
+        - **Language name:** Spanish (Spain)
+        - **Codename:** es-ES
 
-1. Install the [Kontent Backup Manager](https://github.com/Kentico/kontent-backup-manager-js) and import data to newly created project from the [part_two_backup.zip](https://github.com/kentico-michaelb/kontent-mvc-navigation/blob/PartTwo/part_two_backup.zip) file (place appropriate values for apiKey and projectId arguments):
+1. Go to _Project Settings_ > _API Keys_, note the _Project ID_ and _Management API_ keys for later use
+
+1. Install the [Kontent Backup Manager](https://github.com/Kentico/kontent-backup-manager-js) and import data to newly created project from the [part_three_backup.zip](https://github.com/kentico-michaelb/kontent-mvc-navigation/blob/PartThree/part_three_backup.zip) file (place appropriate values for apiKey and projectId arguments):
 
     ```sh
     npm i -g @kentico/kontent-backup-manager
 
-    kbm --action=restore --apiKey=<Management API key> --projectId=<Project ID> --zipFilename=part_two_backup
+    kbm --action=restore --apiKey=<Management API key> --projectId=<Project ID> --zipFilename=part_three_backup
     ```
 
-    > Alternatively, you can use the [Template Manager UI](https://github.com/Kentico/kontent-template-manager) for importing the content.
-
-Go to your Kontent project and publish all the imported items.
+    > Alternatively, you can use the [Template Manager UI](https://github.com/Kentico/kontent-template-manager) for importing the content. <br/>
+    > **Note:** All language variants in the Kentico Kontent project must be published. The Kontent Backup Manager does this by default, and there is a "Publish language variants after import" option in the Kontent Template Manager UI.
 
 ### Connecting to the sample project
 Perform the following steps to connect your MVC application to the imported project:
