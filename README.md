@@ -38,7 +38,7 @@ To import the sample project:
     ```sh
     npm i -g @kentico/kontent-backup-manager
 
-    kbm --action=restore --apiKey=<Management API key> --projectId=<Project ID> --zipFilename=part_three_backup
+    kbm --action=restore --apiKey=<Management API key> --projectId=<Project ID> --zipFilename=part_four_backup
     ```
 
     > Alternatively, you can use the [Template Manager UI](https://github.com/Kentico/kontent-template-manager) for importing the content. <br/>
