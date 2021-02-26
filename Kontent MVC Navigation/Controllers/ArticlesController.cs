@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Kentico.Kontent.Delivery.Abstractions;
 using Kentico.Kontent.Delivery.Urls.QueryParameters.Filters;
 using KenticoKontentModels;
 using Kentico.Kontent.Delivery.Urls.QueryParameters;
-using System.Threading;
 using System.Globalization;
 using AspNetCore.Mvc.Routing.Localization.Attributes;
 
@@ -40,7 +37,7 @@ namespace Kontent_MVC_Navigation.Controllers
             var articlesContentResponse = await _deliveryClient.GetItemAsync<ListingPageContent>("articles_listing_page",
                 new LanguageParameter(CultureInfo.CurrentCulture.Name)
                 );
-            
+
             if (articles.Count > 0)
             {
                 var articleListing = new ListingViewModel
@@ -53,7 +50,7 @@ namespace Kontent_MVC_Navigation.Controllers
             }
             else
             {
-                return NotFound();
+                return RedirectToAction("NotFound", "errors");
             }
 
         }
@@ -62,19 +59,21 @@ namespace Kontent_MVC_Navigation.Controllers
         [LocalizedRoute(SpanishCulture, "mostrar")]
         public async Task<IActionResult> Show(string url_pattern)
         {
-            if(url_pattern != null) { 
             var response = await _deliveryClient.GetItemsAsync<Article>(
                 new EqualsFilter("elements.url_pattern", url_pattern),
+                new EqualsFilter("system.language", CultureInfo.CurrentCulture.Name), // disable language fallback
                 new LanguageParameter(CultureInfo.CurrentCulture.Name)
                 );
 
-                var article = response.Items.FirstOrDefault();
-
-                return View(article);
+            if (response.Items.Count == 0)
+            {
+                return RedirectToAction("Index", "articles");
             }
             else
             {
-                return RedirectToAction("Index");
+                var article = response.Items.FirstOrDefault();
+
+                return View(article);
             }
         }
     }

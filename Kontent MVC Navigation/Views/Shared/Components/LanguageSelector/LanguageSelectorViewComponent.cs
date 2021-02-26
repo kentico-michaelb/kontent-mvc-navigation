@@ -30,7 +30,13 @@ namespace Kontent_MVC_Navigation.Views.Shared.Components.LanguageSelector
             var currentUICulture = CultureInfo.CurrentUICulture;
             var currentController = HttpContext.Request.RouteValues["controller"].ToString();
             var currentAction = HttpContext.Request.RouteValues["action"].ToString();
-            
+            var urlPattern = String.Empty;
+
+            if (HttpContext.Request.RouteValues["url_pattern"] != null)
+            {
+                urlPattern = HttpContext.Request.RouteValues["url_pattern"].ToString();
+            }
+
             LocalizationDirection translationDirection = LocalizationDirection.TranslatedToOriginal;
 
             var cultureOptions = new List<LanguageSwitcherOption>();
@@ -48,11 +54,13 @@ namespace Kontent_MVC_Navigation.Views.Shared.Components.LanguageSelector
                     currentAction,
                     translationDirection);
 
-                var option = new LanguageSwitcherOption {
+                var option = new LanguageSwitcherOption
+                {
                     DisplayName = ci.NativeName.Substring(0, ci.NativeName.IndexOf("(")),
                     CultureCode = ci.Name,
                     TranslatedController = translation.Controller,
-                    TranslatedAction = translation.Action
+                    TranslatedAction = translation.Action,
+                    UrlPattern = urlPattern
                 };
 
                 cultureOptions.Add(option);
@@ -60,7 +68,6 @@ namespace Kontent_MVC_Navigation.Views.Shared.Components.LanguageSelector
 
             var languageSwitcher = new LanguageSwitcher
             {
-                SupportedCultures = _localizationOptions.Value.SupportedCultures.ToList(),
                 CurrentUICulture = currentUICulture,
                 CultureOptions = cultureOptions
             };
