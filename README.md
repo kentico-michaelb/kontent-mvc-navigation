@@ -33,7 +33,7 @@ To import the sample project:
 
 1. Go to _Project Settings_ > _API Keys_, note the _Project ID_ and _Management API_ keys for later use
 
-1. Install the [Kontent Backup Manager](https://github.com/Kentico/kontent-backup-manager-js) and import data to newly created project from the [part_three_backup.zip](https://github.com/kentico-michaelb/kontent-mvc-navigation/blob/PartThree/part_three_backup.zip) file (place appropriate values for apiKey and projectId arguments):
+1. Install the [Kontent Backup Manager](https://github.com/Kentico/kontent-backup-manager-js) and import data to newly created project from the [part_four_backup.zip](https://github.com/kentico-michaelb/kontent-mvc-navigation/blob/PartFour/part_four_backup.zip) file (place appropriate values for apiKey and projectId arguments):
 
     ```sh
     npm i -g @kentico/kontent-backup-manager
