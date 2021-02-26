@@ -20,14 +20,17 @@ namespace KenticoKontentModels
         public const string SubpagesCodename = "subpages";
         public const string TitleCodename = "title";
         public const string UrlCodename = "url";
+        public const string RedirectToCodename = "redirect_to_url";
+        public const string RedirectToInternalCodename = "redirect_to_item";
 
         public IEnumerable<IMultipleChoiceOption> CategoryOnly { get; set; }
         public IEnumerable<object> Content { get; set; }
-        public IEnumerable<RedirectionUrl> RedirectionUrls { get; set; }
         public IEnumerable<IMultipleChoiceOption> ShowInNavigation { get; set; }
         public IEnumerable<object> Subpages { get; set; }
         public IContentItemSystemAttributes System { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+        public string RedirectToUrl { get; set; }
+        public IEnumerable<Page> RedirectToItem { get; set; }
     }
 }

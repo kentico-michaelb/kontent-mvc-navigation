@@ -2,54 +2,40 @@
 @model Page
 @{
     Layout = null;
-    bool pageHasSubpages = Model.Subpages.Count() > 0 ? true : false;
-    bool pageHasContent = Model.Content.Count() > 0 ? true : false;
-    bool pageIsCategoryOnly = Model.CategoryOnly.First().Codename == "yes" ? true : false;
-    bool pageIsRedirect = Model.RedirectionUrls.Count() > 0 ? true : false;
-    var pageUrl = Model.Url != null ? Model.Url : "#";
 }
 
-@* Menu item is a dummy item with sub-items *@
-@if (pageIsCategoryOnly && pageHasSubpages)
-{
-    <li class="dropdown">
-        <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Model.Title</a>
-        <ul class="dropdown-menu">
-            @foreach (Page page in Model.Subpages)
-            {
-                if (page.ShowInNavigation.FirstOrDefault().Codename == "yes")
-                {
-                    @Html.DisplayFor(vm => page, "NavigationDisplay")
-                }
-            }
-        </ul>
-    </li>
-}
-else
+@*Page is Redirect*@
+@if (Model.RedirectToUrl.Length > 0 || Model.RedirectToItem.Count() > 0)
 {
     <li>
-        @if (pageIsRedirect)
+        @if (Model.RedirectToUrl.Length > 0)
         {
-            RedirectionUrl redirecton = Model.RedirectionUrls.First();
-            if (redirecton.RedirectTo.Length > 0)
-            {
-                <a href=@redirecton.RedirectTo target="_blank">@Model.Title</a>
-            }
-            else
-            {
-                <localized-route asp-controller=@redirecton.RedirectToInternal.First().PageCodename asp-action="Index">@Model.Title</localized-route>
-            }
-
+            <a href=@Model.RedirectToUrl target="_blank">@Model.Title</a>
         }
         else
         {
-
-            @if (pageHasContent && !pageIsCategoryOnly)
-            {
-                <localized-route asp-controller=@Model.PageCodename asp-action="Index">@Model.Title</localized-route>
-
-                @* Check for nested navigation items *@
-                <ul>
+            <localized-route asp-controller=@Model.RedirectToItem.First().PageCodename asp-action="Index">@Model.Title</localized-route>
+        }
+    </li>
+}
+@*404 if content item shown in navigation without content or subpages*@
+else if (Model.Subpages.Count() > 0 || Model.Content.Count() > 0)
+{
+    @*Page is not a "dummy" menu item*@
+    @if (Model.CategoryOnly.First().Codename != "yes")
+    {
+        <li>
+            <localized-route asp-controller=@Model.PageCodename asp-action="Index">@Model.Title</localized-route>
+        </li>
+    }
+    else
+    {
+        @* Check for nested navigation items *@
+        if (Model.Subpages.Count() > 0)
+        {
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">@Model.Title</a>
+                <ul class="dropdown-menu">
                     @foreach (Page page in Model.Subpages)
                     {
                         if (page.ShowInNavigation.FirstOrDefault().Codename == "yes")
@@ -58,12 +44,13 @@ else
                         }
                     }
                 </ul>
-            }
-            else
-            {
-                <localized-route asp-controller="Errors" asp-action="NotFound">@Model.Title</localized-route>
-            }
-
+            </li>
         }
+    }
+}
+else
+{
+    <li>
+        <localized-route asp-controller="Errors" asp-action="NotFound">@Model.Title</localized-route>
     </li>
 }

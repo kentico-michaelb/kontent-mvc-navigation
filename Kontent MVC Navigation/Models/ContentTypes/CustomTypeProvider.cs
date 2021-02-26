@@ -24,7 +24,6 @@ namespace KenticoKontentModels
             {typeof(ListingPageContent), "listing_page_content"},
             {typeof(Office), "office"},
             {typeof(Page), "page"},
-            {typeof(RedirectionUrl), "redirection_url"},
             {typeof(Tweet), "tweet"}
         };
 
